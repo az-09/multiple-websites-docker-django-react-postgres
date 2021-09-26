@@ -24,24 +24,22 @@ const contactsReducer = (state, { type, payload }) => {
       };
 
     case GET_CONTACTS_SUCCESS:
+
       return {
         ...state,
         loading: false,
         data: payload,
       };
 
-    case DELETE_CONTACT_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        data: state.data.filter((contact) => contact.id !== payload),
-      };
 
     case ADD_CONTACT_TO_CONTACTS:
-     
-    return {
+
+      return {
         ...state,
-        data: [...state.data.results, payload],
+        data: {
+          ...state.data,
+          results: [...state.data.results, payload]
+        },
       };
 
     case GET_CONTACTS_ERROR:
@@ -73,17 +71,33 @@ const contactsReducer = (state, { type, payload }) => {
         }),
       };
 
+    case DELETE_CONTACT_SUCCESS:
+
+      return {
+        ...state,
+        loading: false,
+        data: {
+          ...state.data,
+          results: state.data.results.filter((contact) => contact.id !== payload)
+        }
+      };
+
+
     case UPDATE_FAVORITE_SUCCESS: {
       return {
         ...state,
         loading: false,
-        data: state.data.map((contact) => {
-          if (contact.id === payload.id) {
-            return payload;
-          }
-          return contact;
-        }),
-      };
+        data: {
+          ...state.data,
+          results: state.data.results.map((contact) => {
+            if (contact.id === payload.id) {
+              return payload;
+            }
+            return contact;
+          })
+        }
+
+      }
     }
 
     default:

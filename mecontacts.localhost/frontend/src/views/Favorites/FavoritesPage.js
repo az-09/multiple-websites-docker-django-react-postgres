@@ -12,9 +12,9 @@ import "./FavoritesPage.css";
 const FavoritesPage = (state) => {
   const { loading, data, isSearchActive, contactsFound } = state;
 
-  const currentContacts = isSearchActive ? contactsFound : data;
+  const currentContacts = isSearchActive ? contactsFound : data.results;
 
-  const favoriteContacts = currentContacts.length > 0 &&  currentContacts.filter(
+  const favoriteContacts = currentContacts?.length > 0 &&  currentContacts.filter(
     (contact) => contact.is_favorite
   );
 

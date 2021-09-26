@@ -21,17 +21,17 @@ const ContactListPage = (state) => {
     deleteContact(id)(contactsDispatch);
   };
 
-  const currentContacts = isSearchActive ? contactsFound : data;
+  const currentContacts = isSearchActive ? contactsFound : data.results;
 
   const handleUpdateFavorite = (id, is_favorite) => {
     updateFavorite(id, !is_favorite)(contactsDispatch)
-    
+
   }
 
 
   return (
 
-      <Container>
+    <Container>
       <Header>ALL</Header>
       {loading && (
         <>
@@ -50,13 +50,13 @@ const ContactListPage = (state) => {
           </Placeholder>
         </>
       )}
-      {!loading && currentContacts.length === 0 && (
+      {!loading && currentContacts?.length === 0 && (
         <Message content="No contacts to show." />
       )}
 
       <List>
-        {currentContacts.length > 0  &&
-          currentContacts.map((contact) => (
+        {currentContacts?.length > 0 &&
+          currentContacts?.map((contact) => (
             <List.Item key={contact.id}>
               <List.Content floated="right">
                 <span>
@@ -91,8 +91,8 @@ const ContactListPage = (state) => {
             </List.Item>
           ))}
       </List>
-      </Container>
-   
+    </Container>
+
   );
 };
 
