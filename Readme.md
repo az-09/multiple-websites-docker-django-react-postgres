@@ -69,7 +69,7 @@ POSTGRES_PASSWORD=lottocombo
 POSTGRES_HOST=db-lottocombo
 POSTGRES_PORT=5432
 ```
-- start lottocomb services
+- start lottocombo services
 ```
 cd lottocombo.localhost
 docker-compose up --build -detach
