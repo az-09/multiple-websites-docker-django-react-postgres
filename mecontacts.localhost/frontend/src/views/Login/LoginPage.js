@@ -89,7 +89,7 @@ const LoginPage = () => {
 
           </Segment>
           <Segment basic textAlign={"center"}>
-            <Icon name="github" size='large'  ></Icon> <a href="https://github.com/az-09/me-contacts-app">Frontend</a> | <a href="https://github.com/az-09/me-contacts-api">Backend</a>   <br />
+            <Icon name="github" size='large'  ></Icon> <a href="https://github.com/az-09/multiple-websites-docker-django-react-postgres/tree/main/mecontacts.localhost/frontend">Frontend</a> | <a href="https://github.com/az-09/multiple-websites-docker-django-react-postgres/tree/main/mecontacts.localhost/backend">Backend</a>   <br />
             Credit to <Icon name='user circle' size='large' /> <a href="https://www.youtube.com/c/CryceTruly">Cryce Truly</a>
 
           </Segment>
