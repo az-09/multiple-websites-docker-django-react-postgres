@@ -1,0 +1,52 @@
+version: "3.1"
+
+services:
+  db:
+    container_name: "db-${PROJECT_NAME}"
+    restart: unless-stopped
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB="${POSTGRES_DB}"
+      - POSTGRES_USER="${POSTGRES_USER}"
+      - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+
+  backend:
+    container_name: "backend-${PROJECT_NAME}"
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    entrypoint: /app/docker/backend/wsgi-entrypoint.sh
+    volumes:
+      - static_volume:/app/backend/django_static
+    expose:
+      - 8000
+    depends_on:
+      - db
+
+  nginx:
+    container_name: "nginx-${PROJECT_NAME}"
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+      - static_volume:/app/backend/django_static
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+    environment:
+      - "VIRTUAL_HOST=${VIRTUAL_HOST}"
+      - VIRTUAL_PORT=80
+    expose:
+      - 80
+    depends_on:
+      - backend
+
+volumes:
+  static_volume: {}
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
