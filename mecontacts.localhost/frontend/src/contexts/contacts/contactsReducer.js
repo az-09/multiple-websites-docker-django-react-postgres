@@ -57,7 +57,8 @@ const contactsReducer = (state, { type, payload }) => {
         ...state,
         loading: false,
         isSearchActive: !!searchText, // https://betterprogramming.pub/10-modern-javascript-tricks-every-developer-should-use-377857311d79
-        contactsFound: state.data.filter((contact) => {
+        contactsFound: 
+          state.data.results.filter((contact) => {
           try {
             // to prevent special characters which result in breaking app
             return (
@@ -68,7 +69,7 @@ const contactsReducer = (state, { type, payload }) => {
           } catch (error) {
             return [];
           }
-        }),
+        })
       };
 
     case DELETE_CONTACT_SUCCESS:
